@@ -5,7 +5,8 @@ struct IFlyBehavior
 {
 	virtual ~IFlyBehavior(){};
 	virtual void Fly() = 0;
-	virtual bool IsDuckCanFly() = 0;
+	//
+	virtual bool CanFly() = 0;
 	virtual int GetFlightCount() = 0;
 };
 

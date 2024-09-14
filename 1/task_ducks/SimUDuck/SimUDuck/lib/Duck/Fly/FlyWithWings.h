@@ -13,7 +13,7 @@ public:
 		std::cout << "My count of flights: " << ++m_flightCount << "\n";
 	}
 
-	bool IsDuckCanFly() override {
+	bool CanFly() override {
 		return true;
 	}
 

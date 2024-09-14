@@ -36,7 +36,7 @@ public:
 	void Fly()
 	{
 		m_flyBehavior->Fly();
-		if (m_flyBehavior->IsDuckCanFly())
+		if (m_flyBehavior->CanFly())
 		{
 			if (m_flyBehavior->GetFlightCount() % 2 == 0 )
 			{
@@ -45,8 +45,9 @@ public:
 		}
 	}
 
+	//убрать метод виртуальный
 	//протестировать метод Dance. создать моковый объект, проверить есть метод dance
-	virtual void Dance()
+	void Dance()
 	{
 		m_danceBehavior->Dance();
 	}

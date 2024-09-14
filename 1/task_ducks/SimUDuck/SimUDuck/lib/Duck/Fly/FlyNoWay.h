@@ -8,7 +8,7 @@ class FlyNoWay : public IFlyBehavior
 public:
 	void Fly() override {}
 
-	bool IsDuckCanFly() override {
+	bool CanFly() override {
 		return false;
 	}
 	
