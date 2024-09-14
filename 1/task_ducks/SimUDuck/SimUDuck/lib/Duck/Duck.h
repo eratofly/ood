@@ -11,6 +11,8 @@
 #include <vector>
 #include <functional>
 
+//объявить шаблоны типов для стратегий
+
 class Duck
 {
 public:
@@ -37,6 +39,7 @@ public:
 	void Fly()
 	{
 		auto flightCount = m_flyBehavior();
+		//узнать может ли утка летать до того, добавить 2 функции: могу ли полетать и полелеть
 		if (flightCount != 0 && flightCount % 2 == 0)
 		{
 			m_quackBehavior();
@@ -44,7 +47,7 @@ public:
 	}
 
 	//протестировать метод Dance. создать моковый объект, проверить есть метод dance
-	virtual void Dance()
+	 void Dance()
 	{
 		m_danceBehavior();
 	}
