@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,6 +129,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SimUDuckFunctional2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\SimUDuck\lib\DuckFunctions.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\Dance\DanceMinuet.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\Dance\DanceNoWay.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\Dance\DanceWaltz.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\Dance\IDanceBehavior.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\DecoyDuck.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\Duck.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\Fly\FlyNoWay.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\Fly\FlyWithWings.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\Fly\IFlyBehavior.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\MallardDuck.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\ModelDuck.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\Quack\IQuakBehavior.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\Quack\MuteQuackBehavior.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\Quack\QuackBehavior.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\Quack\SqueakBehavior.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\RedheadDuck.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\RubberDuck.h" />
+    <ClInclude Include="..\SimUDuck\lib\Duck\TestDuck.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,16 +1,12 @@
 #ifndef QUACKBEHAVIOR_H
 #define QUACKBEHAVIOR_H
 
-#include "IQuakBehavior.h"
 #include <iostream>
 
-class QuackBehavior : public IQuackBehavior
+std::function<void()> QuackBehavior()
 {
-public:
-	void Quack() override
-	{
-		std::cout << "Quack Quack!!!\n";
-	}
-};
+	std::cout << "Quack Quack!!!" << std::endl;
+	return []() {};
+}
 
 #endif

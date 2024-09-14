@@ -3,18 +3,10 @@
 
 #include "IFlyBehavior.h"
 
-class FlyNoWay : public IFlyBehavior
+std::function<int()> FlyNoWay()
 {
-public:
-	void Fly() override {}
-
-	bool IsDuckCanFly() override {
-		return false;
-	}
-	
-	int GetFlightCount() override {
+	return [] () {
 		return 0;
-	}
-};
-
+	};
+}
 #endif

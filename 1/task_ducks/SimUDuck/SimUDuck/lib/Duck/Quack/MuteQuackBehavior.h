@@ -1,12 +1,9 @@
 #ifndef MUTEQUAKBEHAVIOR_H
 #define MUTEQUAKBEHAVIOR_H
 
-#include "IQuakBehavior.h"
-
-class MuteQuackBehavior : public IQuackBehavior
+std::function<void()> MuteQuackBehavior()
 {
-public:
-	void Quack() override {}
-};
+	return [] () {};
+}
 
 #endif

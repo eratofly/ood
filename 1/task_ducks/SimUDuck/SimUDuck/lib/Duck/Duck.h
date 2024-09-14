@@ -9,13 +9,14 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <functional>
 
 class Duck
 {
 public:
-	Duck(std::unique_ptr<IFlyBehavior>&& flyBehavior,
-		std::unique_ptr<IQuackBehavior>&& quackBehavior,
-		std::unique_ptr<IDanceBehavior>&& danceBehavior)
+	Duck(std::function<int()> flyBehavior,
+		std::function<void()>&& quackBehavior,
+		std::function<void()>&& danceBehavior)
 		: m_quackBehavior(std::move(quackBehavior))
 		, m_danceBehavior(std::move(danceBehavior))
 	{
@@ -25,7 +26,7 @@ public:
 
 	void Quack() const
 	{
-		m_quackBehavior->Quack();
+		m_quackBehavior();
 	}
 
 	void Swim()
@@ -35,23 +36,20 @@ public:
 
 	void Fly()
 	{
-		m_flyBehavior->Fly();
-		if (m_flyBehavior->IsDuckCanFly())
+		auto flightCount = m_flyBehavior();
+		if (flightCount != 0 && flightCount % 2 == 0)
 		{
-			if (m_flyBehavior->GetFlightCount() % 2 == 0 )
-			{
-				m_quackBehavior->Quack();
-			}
+			m_quackBehavior();
 		}
 	}
 
 	//протестировать метод Dance. создать моковый объект, проверить есть метод dance
 	virtual void Dance()
 	{
-		m_danceBehavior->Dance();
+		m_danceBehavior();
 	}
 
-	void SetFlyBehavior(std::unique_ptr<IFlyBehavior>&& flyBehavior)
+	void SetFlyBehavior(std::function<int()> flyBehavior)
 	{
 		assert(flyBehavior);
 		m_flyBehavior = std::move(flyBehavior);
@@ -61,9 +59,9 @@ public:
 	virtual ~Duck() = default;
 
 private:
-	std::unique_ptr<IFlyBehavior> m_flyBehavior;
-	std::unique_ptr<IQuackBehavior> m_quackBehavior;
-	std::unique_ptr<IDanceBehavior> m_danceBehavior;
+	std::function<int()> m_flyBehavior;
+	std::function<void()> m_quackBehavior;
+	std::function<void()> m_danceBehavior;
 };
 
 #endif

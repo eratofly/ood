@@ -1,16 +1,12 @@
 #ifndef DANCEWALTZ_H
 #define DANCEWALTZ_H
 
-#include "IDanceBehavior.h"
 #include <iostream>
 
-class DanceWaltz : public IDanceBehavior
+std::function<void()> DanceWaltz()
 {
-public:
-	void Dance() override
-	{
-		std::cout << "I'm dancing waltz!\n";
-	}
-};
+	std::cout << "I'm dancing waltz!\n";
+	return [] () {};
+}
 
 #endif

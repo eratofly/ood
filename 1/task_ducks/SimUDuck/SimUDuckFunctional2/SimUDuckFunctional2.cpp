@@ -1,20 +1,42 @@
-// SimUDuckFunctional2.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include <iostream>
+#include <functional>
+#include "../SimUDuck/lib/Duck/MallardDuck.h"
+#include "../SimUDuck/lib/DuckFunctions.h"
+#include "../SimUDuck/lib/Duck/RedheadDuck.h"
+#include "../SimUDuck/lib/Duck/RubberDuck.h"
+#include "../SimUDuck/lib/Duck/DecoyDuck.h"
+#include "../SimUDuck/lib/Duck/ModelDuck.h"
+#include "../SimUDuck/lib/Duck/TestDuck.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	MallardDuck mallardDuck;
+	PlayWithDuck(mallardDuck);
+	PlayWithDuck(mallardDuck);
+	PlayWithDuck(mallardDuck);
+
+	RedheadDuck redheadDuck;
+	PlayWithDuck(redheadDuck);
+	PlayWithDuck(redheadDuck);
+
+	RubberDuck rubberDuck;
+	PlayWithDuck(rubberDuck);
+	PlayWithDuck(rubberDuck);
+
+	DecoyDuck decoyDuck;
+	PlayWithDuck(decoyDuck);
+	PlayWithDuck(decoyDuck);
+
+	ModelDuck modelDuck;
+	PlayWithDuck(modelDuck);
+	PlayWithDuck(modelDuck);
+
+	TestDuck testDuck;
+	PlayWithDuck(testDuck);
+	PlayWithDuck(testDuck);
+
+	modelDuck.SetFlyBehavior(FlyWithWings());
+	PlayWithDuck(modelDuck);
+
+	return EXIT_SUCCESS;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

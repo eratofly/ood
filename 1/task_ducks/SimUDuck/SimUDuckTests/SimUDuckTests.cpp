@@ -4,9 +4,6 @@
 #include "../SimUDuck/lib/Duck/Duck.h"
 #include "../SimUDuck/lib/DuckFunctions.h"
 #include "../SimUDuck/lib/Duck/MallardDuck.h"
-#include "../SimUDuck/lib/Duck/DecoyDuck.h"
-#include "../SimUDuck/lib/Duck/RubberDuck.h"
-#include "../SimUDuck/lib/Duck/RedheadDuck.h"
 #include "../SimUDuck/lib/Duck/ModelDuck.h"
 
 using namespace std;

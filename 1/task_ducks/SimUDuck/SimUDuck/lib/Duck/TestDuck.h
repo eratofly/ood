@@ -10,7 +10,7 @@ class TestDuck : public Duck
 {
 public:
 	TestDuck()
-		: Duck(std::make_unique<FlyWithWings>(), std::make_unique<QuackBehavior>(), std::make_unique<DanceWaltz>())
+		: Duck(FlyWithWings(), QuackBehavior(), DanceWaltz())
 	{
 	}
 

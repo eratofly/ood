@@ -1,16 +1,12 @@
 #ifndef DANCEMINUET_H
 #define DANCEMINUET_H
 
-#include "IDanceBehavior.h"
 #include <iostream>
 
-class DanceMinuet : public IDanceBehavior
+std::function<void()> DanceMinuet()
 {
-public:
-	void Dance() override
-	{
-		std::cout << "I'm dancing minuet!\n";
-	}
-};
+	std::cout << "I'm dancing minuet!\n";
+	return [] () {};
+}
 
 #endif

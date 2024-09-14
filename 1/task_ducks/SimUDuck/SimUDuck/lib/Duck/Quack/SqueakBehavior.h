@@ -1,16 +1,12 @@
 #ifndef SQUEAKBEHAVIOR_H
 #define SQUEAKBEHAVIOR_H
 
-#include "IQuakBehavior.h"
 #include <iostream>
 
-class SqueakBehavior : public IQuackBehavior
+std::function<void()> SqueakBehavior()
 {
-public:
-	void Quack() override
-	{
-		std::cout << "Squeek!!!\n";
-	}
-};
+	std::cout << "Squeek!!!" << std::endl;
+	return []() {};
+}
 
 #endif
