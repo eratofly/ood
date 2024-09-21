@@ -11,7 +11,7 @@ public:
 	bool CanFly() override {
 		return false;
 	}
-	
+
 	int GetFlightCount() override {
 		return 0;
 	}
