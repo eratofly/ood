@@ -1,4 +1,6 @@
-﻿#include <set>
+﻿#pragma once
+
+#include <set>
 #include <functional>
 
 /*
@@ -43,16 +45,26 @@ public:
 
 	void NotifyObservers() override
 	{
+		m_notifyingObservers = true;
 		T data = GetChangedData();
 		for (auto& observer : m_observers)
 		{
 			observer->Update(data);
 		}
+		EraseObservers();
+		m_notifyingObservers = false;
 	}
 
 	void RemoveObserver(ObserverType& observer) override
 	{
-		m_observers.erase(&observer);
+		if (m_notifyingObservers)
+		{
+			m_observersToErase.insert(&observer);
+		}
+		else
+		{
+			m_observers.erase(&observer);
+		}
 	}
 
 protected:
@@ -61,5 +73,15 @@ protected:
 	virtual T GetChangedData()const = 0;
 
 private:
-	std::set<ObserverType*> m_observers;
+	void EraseObservers()
+	{
+		for (auto& observer : m_observersToErase)
+		{
+			m_observers.erase(observer);
+		}
+		m_observersToErase.clear();
+	}
+
+	std::set<ObserverType*> m_observers, m_observersToErase;
+	bool m_notifyingObservers = false;
 };

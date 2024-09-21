@@ -1,7 +1,9 @@
-﻿#include <iostream>
+﻿#pragma once
+#include <iostream>
 #include <vector>
 #include <algorithm>
 #include <climits>
+#include <string>
 #include "Observer.h"
 
 struct SWeatherInfo
@@ -14,7 +16,7 @@ struct SWeatherInfo
 class CDisplay : public IObserver<SWeatherInfo>
 {
 private:
-	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую
+	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую.
 		Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
 		остается публичным
 	*/
@@ -38,12 +40,8 @@ private:
 		double acc = 0;
 		unsigned countAcc = 0;
 	};
-	
-	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую
-	Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
-	остается публичным
-	*/
-	void UpdateStatsData(StatsData& data, double newData)
+
+	static void UpdateData(StatsData& data, double newData)
 	{
 		if (data.min > newData)
 		{
@@ -59,21 +57,25 @@ private:
 		std::cout << "Max " << data.name << " " << data.max << std::endl;
 		std::cout << "Min " << data.name << " " << data.min << std::endl;
 		std::cout << "Average " << data.name << " " << (data.acc / data.countAcc) << std::endl;
-		std::cout << "---" << std::endl;
 	}
 
+	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую.
+	Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
+	остается публичным
+	*/
 	void Update(SWeatherInfo const& data) override
 	{
-		UpdateStatsData(m_temperature, data.temperature);
-		UpdateStatsData(m_humidity, data.humidity);
-		UpdateStatsData(m_pressure, data.pressure);
+		UpdateData(m_temperature, data.temperature);
+		std::cout << "---" << std::endl;
+		UpdateData(m_humidity, data.humidity);
+		std::cout << "---" << std::endl;
+		UpdateData(m_pressure, data.pressure);
 		std::cout << "----------------" << std::endl;
 	}
 
 	StatsData m_temperature{ "Temp" };
 	StatsData m_humidity{ "Hum" };
 	StatsData m_pressure{ "Pressure" };
-
 };
 
 class CWeatherData : public CObservable<SWeatherInfo>
