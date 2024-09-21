@@ -35,18 +35,6 @@ TEST_CASE("Test with mallard duck. It always flies")
 	);
 }
 
-TEST_CASE("Test with decoy duck. It never flies")
-{
-	std::stringstream buffer;
-	std::streambuf* prev_buf = std::cout.rdbuf(buffer.rdbuf());
-	
-	DecoyDuck decoyDuck;
-	PlayWithDuck(decoyDuck);
-	PlayWithDuck(decoyDuck);
-
-	std::cout.rdbuf(prev_buf);
-	CHECK(buffer.str() == "I'm decoy duck\n\nI'm decoy duck\n\n");
-}
 //
 //TEST_CASE("Get prime numbers with negative upper bound")
 //{

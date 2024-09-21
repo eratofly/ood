@@ -9,13 +9,18 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <functional>
+#include <optional>
+
+
+//объявить шаблоны типов для стратегий
 
 class Duck
 {
 public:
-	Duck(std::unique_ptr<IFlyBehavior>&& flyBehavior,
-		std::unique_ptr<IQuackBehavior>&& quackBehavior,
-		std::unique_ptr<IDanceBehavior>&& danceBehavior)
+	Duck(std::function<std::optional<std::function<int()>>()> flyBehavior,
+		std::function<void()>&& quackBehavior,
+		std::function<void()>&& danceBehavior)
 		: m_quackBehavior(std::move(quackBehavior))
 		, m_danceBehavior(std::move(danceBehavior))
 	{
@@ -25,7 +30,7 @@ public:
 
 	void Quack() const
 	{
-		m_quackBehavior->Quack();
+		m_quackBehavior();
 	}
 
 	void Swim()
@@ -35,24 +40,25 @@ public:
 
 	void Fly()
 	{
-		m_flyBehavior->Fly();
-		if (m_flyBehavior->CanFly())
+		auto flight = m_flyBehavior();
+		if (flight.has_value())
 		{
-			if (m_flyBehavior->GetFlightCount() % 2 == 0 )
+			auto flightCount = flight.value()();
+			if (flightCount != 0 && flightCount % 2 == 0)
 			{
-				m_quackBehavior->Quack();
+				m_quackBehavior();
 			}
 		}
+		//узнать может ли утка летать до того, добавить 2 функции: могу ли полетать и полелеть
 	}
 
-	//убрать метод виртуальный
 	//протестировать метод Dance. создать моковый объект, проверить есть метод dance
-	void Dance()
+	 void Dance()
 	{
-		m_danceBehavior->Dance();
+		m_danceBehavior();
 	}
 
-	void SetFlyBehavior(std::unique_ptr<IFlyBehavior>&& flyBehavior)
+	void SetFlyBehavior(std::function<std::optional<std::function<int()>>()> flyBehavior)
 	{
 		assert(flyBehavior);
 		m_flyBehavior = std::move(flyBehavior);
@@ -62,9 +68,9 @@ public:
 	virtual ~Duck() = default;
 
 private:
-	std::unique_ptr<IFlyBehavior> m_flyBehavior;
-	std::unique_ptr<IQuackBehavior> m_quackBehavior;
-	std::unique_ptr<IDanceBehavior> m_danceBehavior;
+	std::function<std::optional<std::function<int()>>()> m_flyBehavior;
+	std::function<void()> m_quackBehavior;
+	std::function<void()> m_danceBehavior;
 };
 
 #endif

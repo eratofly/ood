@@ -2,19 +2,14 @@
 #define FLYNOWAY_H
 
 #include "IFlyBehavior.h"
+#include <optional>
 
-class FlyNoWay : public IFlyBehavior
+
+std::function<std::optional<std::function<int()>>()> FlyNoWay()
 {
-public:
-	void Fly() override {}
-
-	bool CanFly() override {
-		return false;
-	}
-	
-	int GetFlightCount() override {
-		return 0;
-	}
-};
+	return []() {
+		return std::nullopt;
+		};
+}
 
 #endif

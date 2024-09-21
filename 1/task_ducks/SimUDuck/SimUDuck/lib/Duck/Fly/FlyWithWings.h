@@ -1,29 +1,18 @@
 #ifndef FLYWITHWINGS_H
 #define FLYWITHWINGS_H
 
-#include "IFlyBehavior.h"
 #include <iostream>
 
-class FlyWithWings : public IFlyBehavior
+std::function<std::optional<std::function<int()>>()> FlyWithWings()
 {
-public:
-	void Fly() override
-	{
-		std::cout << "I'm flying with wings!!\n";
-		std::cout << "My count of flights: " << ++m_flightCount << "\n";
-	}
+	int flightCount = 0;
+	return [flightCount]() mutable {
+		return [flightCount]() mutable {
+			std::cout << "I'm flying with wings, count: " << flightCount++ << std::endl;
+			return flightCount;
+			};
+		};
+}
 
-	bool CanFly() override {
-		return true;
-	}
-
-	int GetFlightCount() override
-	{
-		return m_flightCount;
-	}
-
-private:
-	int m_flightCount = 0;
-};
 
 #endif

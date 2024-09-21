@@ -34,7 +34,7 @@ int main()
 	PlayWithDuck(testDuck);
 	PlayWithDuck(testDuck);
 
-	modelDuck.SetFlyBehavior(std::make_unique<FlyWithWings>());
+	modelDuck.SetFlyBehavior(FlyWithWings());
 	PlayWithDuck(modelDuck);
 
 	return EXIT_SUCCESS;
