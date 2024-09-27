@@ -13,6 +13,36 @@ struct SWeatherInfo
 	double pressure = 0;
 };
 
+class CStatsData 
+{
+public:
+	CStatsData(const std::string& name) : name(name) {}
+
+	void UpdateData(double newData)
+	{
+		if (m_min > newData)
+		{
+			m_min = newData;
+		}
+		if (m_max < newData)
+		{
+			m_max = newData;
+		}
+		m_acc += newData;
+		++m_countAcc;
+
+		std::cout << "Max " << name << " " << m_max << std::endl;
+		std::cout << "Min " << name << " " << m_min << std::endl;
+		std::cout << "Average " << name << " " << (m_acc / m_countAcc) << std::endl;
+	}
+private:
+	std::string name;
+	double m_min = std::numeric_limits<double>::infinity();
+	double m_max = -std::numeric_limits<double>::infinity();
+	double m_acc = 0;
+	unsigned m_countAcc = 0;
+};
+
 class CDisplay : public IObserver<SWeatherInfo>
 {
 private:
@@ -32,32 +62,7 @@ private:
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
 private:
-	struct StatsData
-	{
-		std::string name;
-		double min = std::numeric_limits<double>::infinity();
-		double max = -std::numeric_limits<double>::infinity();
-		double acc = 0;
-		unsigned countAcc = 0;
-	};
-
-	static void UpdateData(StatsData& data, double newData)
-	{
-		if (data.min > newData)
-		{
-			data.min = newData;
-		}
-		if (data.max < newData)
-		{
-			data.max = newData;
-		}
-		data.acc += newData;
-		++data.countAcc;
-
-		std::cout << "Max " << data.name << " " << data.max << std::endl;
-		std::cout << "Min " << data.name << " " << data.min << std::endl;
-		std::cout << "Average " << data.name << " " << (data.acc / data.countAcc) << std::endl;
-	}
+	//вынести в отдельный класс, у него будет свой метод update
 
 	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую.
 	Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
@@ -65,17 +70,17 @@ private:
 	*/
 	void Update(SWeatherInfo const& data) override
 	{
-		UpdateData(m_temperature, data.temperature);
+		m_tempStats->UpdateData(data.temperature);
 		std::cout << "---" << std::endl;
-		UpdateData(m_humidity, data.humidity);
+		m_humidityStats->UpdateData(data.humidity);
 		std::cout << "---" << std::endl;
-		UpdateData(m_pressure, data.pressure);
+		m_pressureStats->UpdateData(data.pressure);
 		std::cout << "----------------" << std::endl;
 	}
 
-	StatsData m_temperature{ "Temp" };
-	StatsData m_humidity{ "Hum" };
-	StatsData m_pressure{ "Pressure" };
+	std::unique_ptr<CStatsData> m_tempStats = std::make_unique<CStatsData>("Temp");
+	std::unique_ptr<CStatsData> m_humidityStats = std::make_unique<CStatsData>("Hum");
+	std::unique_ptr<CStatsData> m_pressureStats = std::make_unique<CStatsData>("Pressure");
 };
 
 class CWeatherData : public CObservable<SWeatherInfo>

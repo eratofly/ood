@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SimUDuck.cpp" />
+    <ClCompile Include="TestDance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\DuckFunctions.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="lib\Duck\RedheadDuck.h" />
     <ClInclude Include="lib\Duck\RubberDuck.h" />
     <ClInclude Include="lib\Duck\TestDuck.h" />
+    <ClInclude Include="TestDance.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

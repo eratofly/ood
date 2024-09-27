@@ -45,26 +45,22 @@ public:
 
 	void NotifyObservers() override
 	{
-		m_notifyingObservers = true;
+
+		//m_notifyingObservers = true;
+		//обернуть в исключение, потом в false
 		T data = GetChangedData();
-		for (auto& observer : m_observers)
+		auto observers = m_observers;
+		for (auto& observer : observers)
 		{
 			observer->Update(data);
 		}
-		EraseObservers();
-		m_notifyingObservers = false;
+		//вообще просто копию сделать
+		//m_notifyingObservers = false;
 	}
 
 	void RemoveObserver(ObserverType& observer) override
 	{
-		if (m_notifyingObservers)
-		{
-			m_observersToErase.insert(&observer);
-		}
-		else
-		{
-			m_observers.erase(&observer);
-		}
+		m_observers.erase(&observer);
 	}
 
 protected:
@@ -73,15 +69,6 @@ protected:
 	virtual T GetChangedData()const = 0;
 
 private:
-	void EraseObservers()
-	{
-		for (auto& observer : m_observersToErase)
-		{
-			m_observers.erase(observer);
-		}
-		m_observersToErase.clear();
-	}
-
-	std::set<ObserverType*> m_observers, m_observersToErase;
+	std::set<ObserverType*> m_observers;
 	bool m_notifyingObservers = false;
 };
